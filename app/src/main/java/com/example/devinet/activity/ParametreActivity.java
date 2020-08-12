@@ -28,7 +28,7 @@ public class ParametreActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         menu.getItem(0).setVisible(true);
-        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
         getSupportActionBar().setTitle("PARAMETRES");
         return true;
     }

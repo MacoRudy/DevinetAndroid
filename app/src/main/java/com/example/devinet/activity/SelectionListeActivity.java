@@ -16,7 +16,7 @@ import com.example.devinet.view_model.MotViewModel;
 
 import java.util.List;
 
-public class SelectionListeActivity extends AppCompatActivity implements View.OnClickListener {
+public class SelectionListeActivity extends BaseActivity implements View.OnClickListener {
 
     int niveau = 1;
     int idCat = 0;

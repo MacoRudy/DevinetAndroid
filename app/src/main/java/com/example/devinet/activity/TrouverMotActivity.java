@@ -3,20 +3,26 @@ package com.example.devinet.activity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.devinet.R;
 import com.example.devinet.bo.Mot;
 import com.example.devinet.repository.IMotRepository;
 import com.example.devinet.repository.MotBDDRepository;
 import com.example.devinet.view_model.MotViewModel;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -48,8 +54,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
         listeMot = viewModel.getListe(nbreLettres, idCategorie);
         valider = findViewById(R.id.ib_valide);
         valider.setEnabled(false);
-        Log.i(TAG, "onCreate: " + listeMot.get(0).getMot());
-        Log.i(TAG, "test");
+
 
     }
 
@@ -82,14 +87,36 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
                 break;
 
         }
+           ImageView image = findViewById(R.id.iv_photo);
+       Uri uri = Uri.parse(listeMot.get(numero).getImg());
+//        Glide.with(this).load(new File(uri.getPath())).into(image);
+      //  Picasso.get().load(uri).into(image);
+        Picasso.get().load(listeMot.get(numero).getImg()).into(image, new Callback() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "onSuccess: bah c'est bien");
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: "+e.toString());
+            }
+        });
         afficherMot(listeMot.get(numero).getMot());
+        Log.i(TAG, "onResume: " + listeMot.get(numero).getImg());
+        Log.i(TAG, "onResume: " + uri);
     }
 
 
     public void afficherMot(String mot) {
+        getSupportActionBar().setTitle("LISTE  " + categorie + " - MOT N°" + (numero + 1));
 
         char[] motMelange = melange(mot);
         Log.i(TAG, "afficherMot: " + motMelange[0]);
+
+
+
+
 //        ImageView image = findViewById(R.id.iv_photo);
 //        //Bitmap myBitmap = BitmapFactory.decodeFile(mot.getImg());
 //        image.setImageURI(Uri.parse(mot.getImg()));
@@ -99,7 +126,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
 //        // affiche l'image sur la page
 //        getContentResolver().openFile(Uri.parse(mot.getImg()),)
 //        image.setImageBitmap(myBitmap);
-//        //image.setImageBitmap(myBitmap);
+
 
         buttons = new ArrayList<>();
         buttons.add((Button) findViewById(R.id.btn_1));

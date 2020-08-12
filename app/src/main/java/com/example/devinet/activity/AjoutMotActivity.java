@@ -1,8 +1,6 @@
 package com.example.devinet.activity;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,28 +13,29 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.devinet.R;
 import com.example.devinet.bo.Categorie;
 import com.example.devinet.bo.Mot;
-import com.example.devinet.repository.CategorieBDDRepository;
-import com.example.devinet.repository.ICategorieRepository;
 import com.example.devinet.view_model.CategorieViewModel;
 import com.example.devinet.view_model.MotViewModel;
 import com.facebook.stetho.Stetho;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -44,9 +43,9 @@ import java.util.List;
 public class AjoutMotActivity extends BaseActivity {
     private static final String TAG = "Rudy";
     private static final int GALLERY_REQUEST = 9;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    public static final int REQUEST_CODE_READ_STORAGE = 21312;
-    String currentPhotoPath;
+    private static final int REQUEST_IMAGE_CAPTURE = 5;
+    private Context context = this;
+    private String currentPhotoPath;
 
 
     @Override
@@ -83,7 +82,7 @@ public class AjoutMotActivity extends BaseActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, GALLERY_REQUEST);
-
+        Log.i(TAG, "onClickCharger: ");
 
     }
 
@@ -97,12 +96,8 @@ public class AjoutMotActivity extends BaseActivity {
             etNom.setError("Votre mot");
             return;
         }
-
         Spinner spinner = findViewById(R.id.spin_categorie);
         Categorie categorie = (Categorie) spinner.getSelectedItem();
-
-
-
         Mot mot = new Mot(0, currentPhotoPath, nom, "", categorie.getIdCat());
 
         viewModel.insert(mot);
@@ -114,6 +109,7 @@ public class AjoutMotActivity extends BaseActivity {
     public void onClickBack(View view) {
         finish();
     }
+
 
     // 3 fonctions pour la prise de photo
     public void onClickPrendre(View view) {
@@ -161,8 +157,12 @@ public class AjoutMotActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data);
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
-            super.onActivityResult(requestCode, resultCode, data);
+
             Log.i(TAG, "je suis au debut du onActivityResult");
             ImageView myImage = (ImageView) findViewById(R.id.iv_image);
             File imgFile = new File(currentPhotoPath);
@@ -175,18 +175,88 @@ public class AjoutMotActivity extends BaseActivity {
             Log.i(TAG, "je suis a la fin du onActivityResult Camera");
         }
 
+
         if (requestCode == GALLERY_REQUEST) {
-            super.onActivityResult(requestCode, resultCode, data);
+
             ImageView myImage = (ImageView) findViewById(R.id.iv_image);
             Uri imageChoisie = data.getData();
-            myImage.setImageURI(imageChoisie);
-            currentPhotoPath = imageChoisie.toString();
-            onResume();
-            Log.i(TAG, "je suis a la fin du onActivityResult Gallery");
-        }
 
+            // myImage.setImageURI(imageChoisie);
+            currentPhotoPath = imageChoisie.toString();
+
+            //readFile(currentPhotoPath);
+
+            Log.i(TAG, "onActivityResult: " + currentPhotoPath);
+            Picasso.get().load(currentPhotoPath).into(myImage);
+//
+//            Glide.with(context)
+//                    .load(new File(uri.getPath()))
+//                    .into(imageView);
+            onResume();
+            Log.i(TAG, "currentPhotoPath" + currentPhotoPath);
+        }
     }
 
+//    public void readFile(String filepath) {
+//        try {
+//            Uri uri = Uri.parse(filepath);
+//            if (uri.getScheme() == null) {
+//                uri = Uri.parse("file://" + filepath);
+//            }
+//            byte[] inputData = getBytes(context, uri);
+//            Log.i(TAG, "inputData: " + inputData);
+//            String base64Content = Base64.encodeToString(inputData, Base64.NO_WRAP);
+//            Log.i(TAG, "base64Content: " + base64Content);
+//
+//           byte[] decode = Base64.decode(base64Content,Base64.NO_WRAP);
+//
+//            Log.i(TAG, "decode: "+ decode.toString());
+//
+//
+//            String s = new String(decode, "UTF-8");
+//            Uri uriDecode = Uri.parse(s);
+//            Log.i(TAG, "uriDecode: " + uriDecode);
+//
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//
+//        }
+//    }
+//
+//    private static byte[] getBytes(InputStream inputStream) throws IOException {
+//
+//        byte[] bytesResult = null;
+//        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+//        int bufferSize = 1024;
+//        byte[] buffer = new byte[bufferSize];
+//        try {
+//            int len;
+//            while ((len = inputStream.read(buffer)) != -1) {
+//                byteBuffer.write(buffer, 0, len);
+//            }
+//            bytesResult = byteBuffer.toByteArray();
+//        } finally {
+//            // close the stream
+//            try {
+//                byteBuffer.close();
+//            } catch (IOException ignored) { /* do nothing */ }
+//        }
+//        return bytesResult;
+//    }
+//
+//    private static byte[] getBytes(Context context, Uri uri) throws IOException {
+//        InputStream iStream = context.getContentResolver().openInputStream(uri);
+//        try {
+//            return getBytes(iStream);
+//        } finally {
+//            // close the stream
+//            try {
+//                iStream.close();
+//            } catch (IOException ignored) { /* do nothing */ }
+//        }
+//    }
+//
 }
 
 

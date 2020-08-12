@@ -19,8 +19,8 @@ public class AProposActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        menu.getItem(0).setVisible(true);
-        menu.getItem(2).setVisible(false);
+        menu.getItem(2).setVisible(true);
+        menu.getItem(3).setVisible(false);
         getSupportActionBar().setTitle("A PROPOS");
         return true;
     }

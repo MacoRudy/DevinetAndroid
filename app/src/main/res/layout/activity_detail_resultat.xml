@@ -7,4 +7,11 @@
     android:background="#BABABA"
     tools:context=".activity.DetailResultatActivity">
 
+    <ListView
+        android:id="@+id/liste_mot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

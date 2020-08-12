@@ -9,21 +9,25 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="147dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="115dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="112dp"
         android:text="Activer les sons"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="147dp"
+        android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="79dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="84dp"
         android:text="Activer les vibrations"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -31,7 +35,7 @@
         android:id="@+id/sw_son"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="114dp"
         android:layout_marginEnd="83dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +44,7 @@
         android:id="@+id/sw_vibre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="93dp"
         android:layout_marginEnd="83dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sw_son" />

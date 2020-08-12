@@ -40,9 +40,12 @@ public class BaseActivity extends AppCompatActivity {
                 startActivity(accueil);
                 return true;
 
+            case R.id.ab_accueil2:
+                Intent accueil2 = new Intent(this, AccueilActivity.class);
+                startActivity(accueil2);
+                return true;
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
+
                 return super.onOptionsItemSelected(item);
 
         }

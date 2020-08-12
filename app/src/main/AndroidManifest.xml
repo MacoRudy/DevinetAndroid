@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.devinet">
+    package="com.example.devinet" >
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -8,6 +8,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +17,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        <activity android:name=".activity.AjoutMotTestActivity" >
+        </activity>
         <activity android:name=".activity.DetailResultatActivity" />
         <activity android:name=".activity.TrouverMotActivity" />
         <activity android:name=".activity.SelectionListeActivity" />
@@ -27,7 +31,7 @@
         <activity android:name=".activity.JouerActivity" />
         <activity android:name=".activity.AjoutMotActivity" />
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.AccueilActivity">
+        <activity android:name=".activity.AccueilActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +43,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
