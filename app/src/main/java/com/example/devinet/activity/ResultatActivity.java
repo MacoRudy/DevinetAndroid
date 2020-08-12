@@ -1,6 +1,7 @@
 package com.example.devinet.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,24 +13,34 @@ import android.widget.TextView;
 import com.example.devinet.R;
 
 public class ResultatActivity extends BaseActivity {
+    private FragmentActivity fragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultat);
+        fragment = this;
+
         SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_PRIVATE);
-        int pourcentageTotal = Math.round(sh.getFloat("pourcentageTotal", 0));
-        int pourcentage4Lettres = Math.round(sh.getFloat("pourcentage4Lettres", 0));
-        int pourcentage5Lettres = Math.round(sh.getFloat("pourcentage5Lettres", 0));
-        int pourcentage6Lettres = Math.round(sh.getFloat("pourcentage6Lettres", 0));
+        SharedPreferences.Editor myEdit = sh.edit();
 
+        float pourcentage4Lettres = CalculProgression.getPourcentageNiveau(fragment,4);
+        float pourcentage5Lettres = CalculProgression.getPourcentageNiveau(fragment,5);
+        float pourcentage6Lettres = CalculProgression.getPourcentageNiveau(fragment,6);
+        float pourcentageTotal = CalculProgression.pourcentageTotal(fragment);
 
-        ((ProgressBar) findViewById(R.id.stats_progressbar)).setProgress(pourcentageTotal);
-        ((TextView) findViewById(R.id.tv_pourcentage)).setText(String.valueOf(pourcentageTotal) + "%");
-        ((ProgressBar) findViewById(R.id.pb_1)).setProgress(pourcentage4Lettres);
-        ((ProgressBar) findViewById(R.id.pb_2)).setProgress(pourcentage5Lettres);
-        ((ProgressBar) findViewById(R.id.pb_3)).setProgress(pourcentage6Lettres);
+        myEdit.putFloat("pourcentage4Lettres", pourcentage4Lettres);
+        myEdit.putFloat("pourcentage5Lettres", pourcentage5Lettres);
+        myEdit.putFloat("pourcentage6Lettres", pourcentage6Lettres);
+        myEdit.putFloat("pourcentageTotal", pourcentageTotal);
+        myEdit.apply();
+
+        ((ProgressBar) findViewById(R.id.stats_progressbar)).setProgress(Math.round(pourcentageTotal));
+        ((TextView) findViewById(R.id.tv_pourcentage)).setText(String.valueOf(Math.round(pourcentageTotal)) + "%");
+        ((ProgressBar) findViewById(R.id.pb_1)).setProgress(Math.round(pourcentage4Lettres));
+        ((ProgressBar) findViewById(R.id.pb_2)).setProgress(Math.round(pourcentage5Lettres));
+        ((ProgressBar) findViewById(R.id.pb_3)).setProgress(Math.round(pourcentage6Lettres));
 
     }
 
