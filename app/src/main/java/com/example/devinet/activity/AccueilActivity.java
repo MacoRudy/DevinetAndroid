@@ -3,8 +3,12 @@ package com.example.devinet.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,61 +32,22 @@ import java.util.List;
 
 public class AccueilActivity<MyApplication> extends BaseActivity {
     private static final String TAG = "rudy";
-    private float bonnesReponses = 0;
-
+    private FragmentActivity fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
         Stetho.initializeWithDefaults(this);
-        MotViewModel viewModel = ViewModelProviders.of(this).get(MotViewModel.class);
+        fragment = this;
 
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-        // liste de tous les mots
-        List<Mot> listeMot = viewModel.get();
-        for (Mot mot : listeMot) {
-            if (mot.getProposition().equals(mot.getMot().toUpperCase())) {
-                bonnesReponses++;
-            }
-        }
-        float pourcentageTotal = bonnesReponses / listeMot.size() * 100;
-        bonnesReponses = 0;
-
-        // liste des mots de 4 lettres
-
-        List<Mot> listeMotDe4Lettres = viewModel.getListeSelonLeNombre(4);
-        for (Mot mot : listeMotDe4Lettres) {
-            if (mot.getProposition().equals(mot.getMot().toUpperCase())) {
-                bonnesReponses++;
-            }
-        }
-        float pourcentage4Lettres = bonnesReponses / listeMotDe4Lettres.size() * 100;
-        bonnesReponses = 0;
-
-        // liste des mots de 5lettres
-
-        List<Mot> listeMotDe5Lettres = viewModel.getListeSelonLeNombre(5);
-        for (Mot mot : listeMotDe5Lettres) {
-            if (mot.getProposition().equals(mot.getMot().toUpperCase())) {
-                bonnesReponses++;
-            }
-        }
-        float pourcentage5Lettres = bonnesReponses / listeMotDe5Lettres.size() * 100;
-        bonnesReponses = 0;
-
-        // liste des mots de 6 lettres
-
-        List<Mot> listeMotDe6Lettres = viewModel.getListeSelonLeNombre(6);
-        for (Mot mot : listeMotDe6Lettres) {
-            if (mot.getProposition().equals(mot.getMot().toUpperCase())) {
-                bonnesReponses++;
-            }
-        }
-        float pourcentage6Lettres = bonnesReponses / listeMotDe6Lettres.size() * 100;
-        bonnesReponses = 0;
+        float pourcentage4Lettres = CalculProgression.getPourcentageNiveau(fragment,4);
+        float pourcentage5Lettres = CalculProgression.getPourcentageNiveau(fragment,5);
+        float pourcentage6Lettres = CalculProgression.getPourcentageNiveau(fragment,6);
+        float pourcentageTotal = CalculProgression.pourcentageTotal(fragment);
 
         myEdit.putFloat("pourcentage4Lettres", pourcentage4Lettres);
         myEdit.putFloat("pourcentage5Lettres", pourcentage5Lettres);

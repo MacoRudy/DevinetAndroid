@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".activity.DetailResultatActivity"></activity>
+        <activity android:name=".activity.DetailResultatActivity" />
         <activity android:name=".activity.TrouverMotActivity" />
         <activity android:name=".activity.SelectionListeActivity" />
         <activity android:name=".activity.QuitterActivity" />
