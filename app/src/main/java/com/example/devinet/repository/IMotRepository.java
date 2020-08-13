@@ -1,9 +1,6 @@
 package com.example.devinet.repository;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.devinet.bo.Mot;
-
 import java.util.List;
 
 /**
@@ -23,8 +20,7 @@ public interface IMotRepository {
 
     void delete();
 
-   List<Mot> getListe(int nbreLettres, int idCat);
+    List<Mot> getListe(int nbreLettres, int idCat);
 
     List<Mot> getListeSelonLeNombre(int nbreLettres);
-
 }

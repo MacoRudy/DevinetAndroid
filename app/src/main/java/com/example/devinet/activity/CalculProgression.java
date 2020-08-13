@@ -1,16 +1,11 @@
 package com.example.devinet.activity;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
-
 import com.example.devinet.bo.Mot;
 import com.example.devinet.view_model.MotViewModel;
-
 import java.util.List;
 
 public class CalculProgression extends Application {
@@ -25,7 +20,6 @@ public class CalculProgression extends Application {
     public static Context getContext() {
         return getApplication().getApplicationContext();
     }
-
 
     public static float pourcentageTotal(FragmentActivity activity) {
 

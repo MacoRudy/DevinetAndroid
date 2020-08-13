@@ -1,8 +1,6 @@
 package com.example.devinet.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,12 +8,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.devinet.R;
 
 public class ResultatActivity extends BaseActivity implements View.OnClickListener {
     private FragmentActivity fragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +42,6 @@ public class ResultatActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.textView1).setOnClickListener(this);
         findViewById(R.id.textView2).setOnClickListener(this);
         findViewById(R.id.textView3).setOnClickListener(this);
-
-
     }
 
     @Override
@@ -57,7 +51,6 @@ public class ResultatActivity extends BaseActivity implements View.OnClickListen
         getSupportActionBar().setTitle("RESULTAT - GENERAL");
         return true;
     }
-
 
     @Override
     public void onClick(View view) {

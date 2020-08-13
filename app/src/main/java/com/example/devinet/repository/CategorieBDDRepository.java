@@ -2,13 +2,9 @@ package com.example.devinet.repository;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
-import androidx.lifecycle.LiveData;
-
 import com.example.devinet.bo.Categorie;
 import com.example.devinet.dal.AppDatabase;
 import com.example.devinet.dal.CategorieDAO;
-
 import java.util.List;
 
 public class CategorieBDDRepository implements ICategorieRepository {
@@ -21,7 +17,6 @@ public class CategorieBDDRepository implements ICategorieRepository {
         AppDatabase maBDD = AppDatabase.getInstance(context);
         categorieDAO = maBDD.getCategorieDAO();
     }
-
 
     @Override
     public void insert(final Categorie categorie) {

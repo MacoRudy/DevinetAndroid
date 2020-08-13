@@ -49,9 +49,11 @@
         android:id="@+id/tv_pourcentage"
         android:layout_width="81dp"
         android:layout_height="27dp"
-        android:layout_marginStart="164dp"
+        android:layout_marginStart="166dp"
         android:gravity="center"
         android:text="66%"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/background_progressbar" />
 

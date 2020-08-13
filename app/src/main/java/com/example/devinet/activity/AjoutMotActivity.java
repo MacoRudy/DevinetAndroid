@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
 import com.example.devinet.R;
 import com.example.devinet.bo.Categorie;
 import com.example.devinet.bo.Mot;
@@ -163,7 +161,6 @@ public class AjoutMotActivity extends BaseActivity {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
             // affiche l'image sur la page
-
             myImage.setImageBitmap(myBitmap);
             onResume();
             Log.i(TAG, "je suis a la fin du onActivityResult Camera");

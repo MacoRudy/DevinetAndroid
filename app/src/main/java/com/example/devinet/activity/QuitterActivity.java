@@ -1,10 +1,8 @@
 package com.example.devinet.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-
 import com.example.devinet.R;
 
 public class QuitterActivity extends AppCompatActivity {

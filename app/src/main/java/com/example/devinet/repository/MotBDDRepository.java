@@ -2,13 +2,9 @@ package com.example.devinet.repository;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
-import androidx.lifecycle.LiveData;
-
 import com.example.devinet.bo.Mot;
 import com.example.devinet.dal.AppDatabase;
 import com.example.devinet.dal.MotDAO;
-
 import java.util.List;
 
 public class MotBDDRepository implements IMotRepository {
@@ -19,7 +15,6 @@ public class MotBDDRepository implements IMotRepository {
         AppDatabase maBDD = AppDatabase.getInstance(context);
         motDAO = maBDD.getMotDAO();
     }
-
 
     @Override
     public void insert(final Mot mot) {

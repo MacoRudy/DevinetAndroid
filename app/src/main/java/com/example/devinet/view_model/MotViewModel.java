@@ -1,26 +1,20 @@
 package com.example.devinet.view_model;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-
 import com.example.devinet.bo.Mot;
 import com.example.devinet.repository.IMotRepository;
 import com.example.devinet.repository.MotBDDRepository;
-
 import java.util.List;
 
 public class MotViewModel extends AndroidViewModel {
 
     private IMotRepository repo;
 
-
     public MotViewModel(@NonNull Application application) {
         super(application);
         repo = new MotBDDRepository(application);
-
     }
 
     public List<Mot> get() {

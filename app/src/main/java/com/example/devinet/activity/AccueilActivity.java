@@ -1,34 +1,13 @@
 package com.example.devinet.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 import com.example.devinet.R;
-import com.example.devinet.bo.Mot;
-import com.example.devinet.dal.CategorieDAO;
-import com.example.devinet.dal.MotDAO;
-import com.example.devinet.repository.IMotRepository;
-import com.example.devinet.repository.MotBDDRepository;
-import com.example.devinet.view_model.MotViewModel;
 import com.facebook.stetho.Stetho;
 
-import java.util.List;
 
 public class AccueilActivity<MyApplication> extends BaseActivity {
     private static final String TAG = "rudy";
@@ -61,11 +40,6 @@ public class AccueilActivity<MyApplication> extends BaseActivity {
         // ResultatActivity
         myEdit.putFloat("pourcentageTotal", pourcentageTotal);
         myEdit.apply();
-
-
-//        IMotRepository motDao = new MotBDDRepository(this);
-//        Mot chat = motDao.get(3);
-//        motDao.delete(chat);
 
     }
 

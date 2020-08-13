@@ -1,22 +1,16 @@
 package com.example.devinet.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.devinet.R;
 import com.example.devinet.bo.Categorie;
 import com.example.devinet.view_model.CategorieViewModel;
-import com.example.devinet.view_model.MotViewModel;
-
 import java.util.List;
 
 public class SelectionListeActivity extends BaseActivity implements View.OnClickListener {
@@ -60,7 +54,6 @@ public class SelectionListeActivity extends BaseActivity implements View.OnClick
         ((ProgressBar) findViewById(R.id.pb_2)).setProgress(Math.round(pourcentageCat2));
         ((ProgressBar) findViewById(R.id.pb_3)).setProgress(Math.round(pourcentageCat3));
         ((ProgressBar) findViewById(R.id.pb_4)).setProgress(Math.round(pourcentageCat4));
-
     }
 
     @Override
@@ -93,6 +86,4 @@ public class SelectionListeActivity extends BaseActivity implements View.OnClick
         intent.putExtra("nomCategorie", listeCategorie.get(idCat - 1).getNom());
         startActivity(intent);
     }
-
-
 }

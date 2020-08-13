@@ -2,8 +2,6 @@ package com.example.devinet.bo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;

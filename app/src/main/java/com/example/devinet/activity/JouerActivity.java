@@ -1,30 +1,22 @@
 package com.example.devinet.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.example.devinet.R;
 import com.example.devinet.bo.Mot;
 import com.example.devinet.view_model.MotViewModel;
-
 import java.util.List;
 
 public class JouerActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "rudy";
     SharedPreferences sh;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

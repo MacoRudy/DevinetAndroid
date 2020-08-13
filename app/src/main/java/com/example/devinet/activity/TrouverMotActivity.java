@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,21 +12,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 import com.example.devinet.R;
 import com.example.devinet.bo.Mot;
-import com.example.devinet.repository.IMotRepository;
-import com.example.devinet.repository.MotBDDRepository;
 import com.example.devinet.view_model.MotViewModel;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class TrouverMotActivity extends BaseActivity implements View.OnClickListener {
@@ -61,7 +50,6 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
         Log.i(TAG, "nbreLettres: " + nbreLettres);
         Log.i(TAG, "idCategorie: " + idCategorie);
         Log.i(TAG, "listeMot: " + listeMot.get(0).getMot());
-
     }
 
     @Override
@@ -91,9 +79,9 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
                 btn6.setVisibility(View.INVISIBLE);
                 break;
         }
-
         afficherMot(listeMot.get(numero));
     }
+
     public void afficherMot(Mot mot) {
         getSupportActionBar().setTitle("LISTE  " + categorie + " - MOT N°" + (numero + 1));
 
@@ -119,7 +107,6 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
             buttons.get(i).setText(String.valueOf(motMelange[i]));
             buttons.get(i).setOnClickListener(this);
         }
-
     }
 
     public static char[] melange(String mot) {
@@ -132,10 +119,8 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
             motMelange[i] = motMelange[j];
             motMelange[j] = temp;
         }
-
         return motMelange;
     }
-
 
     @Override
     public void onClick(View view) {
@@ -178,17 +163,12 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
     public void onClickValider(View view) {
 
         StringBuilder proposition = new StringBuilder();
-
         for (TextView t : textViews) {
             proposition.append(t.getText());
         }
-
         listeMot.get(numero).setProposition(proposition.toString());
-
         MotViewModel viewModel = ViewModelProviders.of(this).get(MotViewModel.class);
              viewModel.update(listeMot.get(numero));
-
-
         numero++;
         valider.setEnabled(false);
         if (numero >= listeMot.size()) {
@@ -204,7 +184,6 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
                 t.setText("");
             }
         }
-
     }
 
     public void onClickNext(View view) {

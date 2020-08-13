@@ -2,7 +2,6 @@ package com.example.devinet.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -47,7 +46,6 @@ public class BaseActivity extends AppCompatActivity {
             default:
 
                 return super.onOptionsItemSelected(item);
-
         }
     }
 }

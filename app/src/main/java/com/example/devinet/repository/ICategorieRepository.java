@@ -1,10 +1,6 @@
 package com.example.devinet.repository;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.devinet.bo.Categorie;
-import com.example.devinet.bo.Mot;
-
 import java.util.List;
 
 /**
@@ -25,7 +21,5 @@ public interface ICategorieRepository {
     void delete(Categorie categorie);
 
     void delete();
-
-
 }
 

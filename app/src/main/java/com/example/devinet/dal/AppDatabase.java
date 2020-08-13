@@ -2,13 +2,11 @@ package com.example.devinet.dal;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
-
 import com.example.devinet.bo.Categorie;
 import com.example.devinet.bo.Mot;
 
@@ -19,10 +17,7 @@ public abstract class AppDatabase extends RoomDatabase {
      */
 
     public abstract MotDAO getMotDAO();
-
     public abstract CategorieDAO getCategorieDAO();
-
-
     private static AppDatabase INSTANCE;
 
     public static AppDatabase getInstance(Context context) {
@@ -35,7 +30,6 @@ public abstract class AppDatabase extends RoomDatabase {
                     .build();
         }
         return INSTANCE;
-
     }
 
     private static Callback roomFixture = new Callback() {

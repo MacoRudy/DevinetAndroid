@@ -4,17 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-
 import com.example.devinet.bo.Categorie;
 import com.example.devinet.repository.CategorieBDDRepository;
 import com.example.devinet.repository.ICategorieRepository;
-
-
 import java.util.List;
 
 public class CategorieViewModel extends AndroidViewModel {
-
 
     private ICategorieRepository repo;
     private List<Categorie> observateur = null;
