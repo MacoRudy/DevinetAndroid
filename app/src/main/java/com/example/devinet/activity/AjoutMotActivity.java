@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -29,13 +28,8 @@ import com.example.devinet.view_model.CategorieViewModel;
 import com.example.devinet.view_model.MotViewModel;
 import com.facebook.stetho.Stetho;
 import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -188,75 +182,8 @@ public class AjoutMotActivity extends BaseActivity {
 
             Log.i(TAG, "onActivityResult: " + currentPhotoPath);
             Picasso.get().load(currentPhotoPath).into(myImage);
-//
-//            Glide.with(context)
-//                    .load(new File(uri.getPath()))
-//                    .into(imageView);
+
             onResume();
-            Log.i(TAG, "currentPhotoPath" + currentPhotoPath);
         }
     }
-
-//    public void readFile(String filepath) {
-//        try {
-//            Uri uri = Uri.parse(filepath);
-//            if (uri.getScheme() == null) {
-//                uri = Uri.parse("file://" + filepath);
-//            }
-//            byte[] inputData = getBytes(context, uri);
-//            Log.i(TAG, "inputData: " + inputData);
-//            String base64Content = Base64.encodeToString(inputData, Base64.NO_WRAP);
-//            Log.i(TAG, "base64Content: " + base64Content);
-//
-//           byte[] decode = Base64.decode(base64Content,Base64.NO_WRAP);
-//
-//            Log.i(TAG, "decode: "+ decode.toString());
-//
-//
-//            String s = new String(decode, "UTF-8");
-//            Uri uriDecode = Uri.parse(s);
-//            Log.i(TAG, "uriDecode: " + uriDecode);
-//
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//
-//        }
-//    }
-//
-//    private static byte[] getBytes(InputStream inputStream) throws IOException {
-//
-//        byte[] bytesResult = null;
-//        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-//        int bufferSize = 1024;
-//        byte[] buffer = new byte[bufferSize];
-//        try {
-//            int len;
-//            while ((len = inputStream.read(buffer)) != -1) {
-//                byteBuffer.write(buffer, 0, len);
-//            }
-//            bytesResult = byteBuffer.toByteArray();
-//        } finally {
-//            // close the stream
-//            try {
-//                byteBuffer.close();
-//            } catch (IOException ignored) { /* do nothing */ }
-//        }
-//        return bytesResult;
-//    }
-//
-//    private static byte[] getBytes(Context context, Uri uri) throws IOException {
-//        InputStream iStream = context.getContentResolver().openInputStream(uri);
-//        try {
-//            return getBytes(iStream);
-//        } finally {
-//            // close the stream
-//            try {
-//                iStream.close();
-//            } catch (IOException ignored) { /* do nothing */ }
-//        }
-//    }
-//
 }
-
-

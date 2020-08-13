@@ -3,6 +3,7 @@ package com.example.devinet.activity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +36,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
     private int nbreLettres = 0;
     private int idCategorie = 0;
     private MotViewModel viewModel = null;
-    private List<Mot> listeMot = null;
+    private ArrayList<Mot> listeMot = null;
     private int numero = 0;
     private String categorie = "";
     private int essai = 0;
@@ -51,10 +54,13 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
         categorie = intent.getStringExtra("nomCategorie");
         Log.i(TAG, "nbreLettre " + nbreLettres + " idCat " + idCategorie);
         viewModel = ViewModelProviders.of(this).get(MotViewModel.class);
-        listeMot = viewModel.getListe(nbreLettres, idCategorie);
+        listeMot = (ArrayList<Mot>) viewModel.getListe(nbreLettres, idCategorie);
+        Collections.shuffle(listeMot);
         valider = findViewById(R.id.ib_valide);
         valider.setEnabled(false);
-
+        Log.i(TAG, "nbreLettres: " + nbreLettres);
+        Log.i(TAG, "idCategorie: " + idCategorie);
+        Log.i(TAG, "listeMot: " + listeMot.get(0).getMot());
 
     }
 
@@ -73,8 +79,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
         TextView tv6 = findViewById(R.id.tv_6);
         Button btn5 = findViewById(R.id.btn_5);
         Button btn6 = findViewById(R.id.btn_6);
-        Log.i(TAG, "tv1 " + tv5.getVisibility());
-        switch (nbreLettres) {
+                switch (nbreLettres) {
             case 5:
                 tv6.setVisibility(View.INVISIBLE);
                 btn6.setVisibility(View.INVISIBLE);
@@ -85,48 +90,15 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
                 btn5.setVisibility(View.INVISIBLE);
                 btn6.setVisibility(View.INVISIBLE);
                 break;
-
         }
-           ImageView image = findViewById(R.id.iv_photo);
-       Uri uri = Uri.parse(listeMot.get(numero).getImg());
-//        Glide.with(this).load(new File(uri.getPath())).into(image);
-      //  Picasso.get().load(uri).into(image);
-        Picasso.get().load(listeMot.get(numero).getImg()).into(image, new Callback() {
-            @Override
-            public void onSuccess() {
-                Log.i(TAG, "onSuccess: bah c'est bien");
-            }
 
-            @Override
-            public void onError(Exception e) {
-                Log.e(TAG, "onError: "+e.toString());
-            }
-        });
-        afficherMot(listeMot.get(numero).getMot());
-        Log.i(TAG, "onResume: " + listeMot.get(numero).getImg());
-        Log.i(TAG, "onResume: " + uri);
+        afficherMot(listeMot.get(numero));
     }
-
-
-    public void afficherMot(String mot) {
+    public void afficherMot(Mot mot) {
         getSupportActionBar().setTitle("LISTE  " + categorie + " - MOT N°" + (numero + 1));
 
-        char[] motMelange = melange(mot);
+        char[] motMelange = melange(mot.getMot());
         Log.i(TAG, "afficherMot: " + motMelange[0]);
-
-
-
-
-//        ImageView image = findViewById(R.id.iv_photo);
-//        //Bitmap myBitmap = BitmapFactory.decodeFile(mot.getImg());
-//        image.setImageURI(Uri.parse(mot.getImg()));
-//        File imgFile = new File(mot.getImg());
-//        Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-//
-//        // affiche l'image sur la page
-//        getContentResolver().openFile(Uri.parse(mot.getImg()),)
-//        image.setImageBitmap(myBitmap);
-
 
         buttons = new ArrayList<>();
         buttons.add((Button) findViewById(R.id.btn_1));
@@ -138,16 +110,16 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
 
         Log.i(TAG, "afficherMot: ");
 
+        ImageView imageView = findViewById(R.id.iv_photo);
+        Resources res = getResources();
+        int imgUrl = res.getIdentifier(mot.getImg(), "drawable", getPackageName());
+        imageView.setImageResource(imgUrl);
 
         for (int i = 0; i < motMelange.length; i++) {
             buttons.get(i).setText(String.valueOf(motMelange[i]));
             buttons.get(i).setOnClickListener(this);
         }
 
-//
-//        for (int i = 1; i < motMelange.length + 1; i++) {
-//            ((Button) findViewById(this.getResources().getIdentifier("btn_" + i, "id", this.getPackageName()))).setText(String.valueOf(motMelange[i]));
-//        }
     }
 
     public static char[] melange(String mot) {
@@ -192,7 +164,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
     }
 
     public void onClickEffacer(View view) {
-        afficherMot(listeMot.get(numero).getMot());
+        afficherMot(listeMot.get(numero));
         essai = 0;
         valider.setEnabled(false);
         for (Button b : buttons) {
@@ -223,7 +195,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
             Intent intent = new Intent(this, ResultatActivity.class);
             startActivity(intent);
         } else {
-            afficherMot(listeMot.get(numero).getMot());
+            afficherMot(listeMot.get(numero));
             essai = 0;
             for (Button b : buttons) {
                 b.setEnabled(true);
@@ -242,7 +214,7 @@ public class TrouverMotActivity extends BaseActivity implements View.OnClickList
             Intent intent = new Intent(this, ResultatActivity.class);
             startActivity(intent);
         } else {
-            afficherMot(listeMot.get(numero).getMot());
+            afficherMot(listeMot.get(numero));
             essai = 0;
             for (Button b : buttons) {
                 b.setEnabled(true);
