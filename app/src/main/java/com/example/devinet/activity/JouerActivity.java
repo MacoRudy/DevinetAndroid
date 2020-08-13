@@ -36,7 +36,6 @@ public class JouerActivity extends BaseActivity implements View.OnClickListener 
         int pourcentage5Lettres = Math.round(sh.getFloat("pourcentage5Lettres", 0));
         int pourcentage6Lettres = Math.round(sh.getFloat("pourcentage6Lettres", 0));
 
-
         ((ProgressBar) findViewById(R.id.pb_1)).setProgress(pourcentage4Lettres);
         ((ProgressBar) findViewById(R.id.pb_2)).setProgress(pourcentage5Lettres);
         ((ProgressBar) findViewById(R.id.pb_3)).setProgress(pourcentage6Lettres);

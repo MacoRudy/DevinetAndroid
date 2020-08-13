@@ -1,12 +1,15 @@
 package com.example.devinet.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.devinet.R;
@@ -21,11 +24,14 @@ public class SelectionListeActivity extends BaseActivity implements View.OnClick
     int niveau = 1;
     int idCat = 0;
     List<Categorie> listeCategorie = null;
+    private FragmentActivity fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_liste);
+        fragment = this;
+
         Intent intent = getIntent();
         niveau = intent.getIntExtra("niveau", 0);
         TextView tv1 = findViewById(R.id.textView1);
@@ -37,7 +43,7 @@ public class SelectionListeActivity extends BaseActivity implements View.OnClick
         tv3.setOnClickListener(this);
         tv4.setOnClickListener(this);
 
-        CategorieViewModel viewModel= ViewModelProviders.of(this).get(CategorieViewModel.class);
+        CategorieViewModel viewModel = ViewModelProviders.of(this).get(CategorieViewModel.class);
         listeCategorie = viewModel.get();
 
         tv1.setText(listeCategorie.get(0).getNom());
@@ -45,13 +51,23 @@ public class SelectionListeActivity extends BaseActivity implements View.OnClick
         tv3.setText(listeCategorie.get(2).getNom());
         tv4.setText(listeCategorie.get(3).getNom());
 
+        float pourcentageCat1 = CalculProgression.getPourcentageNiveauEtCategorie(fragment, niveau, 1);
+        float pourcentageCat2 = CalculProgression.getPourcentageNiveauEtCategorie(fragment, niveau, 2);
+        float pourcentageCat3 = CalculProgression.getPourcentageNiveauEtCategorie(fragment, niveau, 3);
+        float pourcentageCat4 = CalculProgression.getPourcentageNiveauEtCategorie(fragment, niveau, 4);
+
+        ((ProgressBar) findViewById(R.id.pb_1)).setProgress(Math.round(pourcentageCat1));
+        ((ProgressBar) findViewById(R.id.pb_2)).setProgress(Math.round(pourcentageCat2));
+        ((ProgressBar) findViewById(R.id.pb_3)).setProgress(Math.round(pourcentageCat3));
+        ((ProgressBar) findViewById(R.id.pb_4)).setProgress(Math.round(pourcentageCat4));
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         menu.getItem(0).setVisible(true);
-        getSupportActionBar().setTitle("NIVEAU " + niveau);
+        getSupportActionBar().setTitle("NIVEAU " + (niveau - 3));
         return true;
     }
 
@@ -71,10 +87,10 @@ public class SelectionListeActivity extends BaseActivity implements View.OnClick
                 idCat = 4;
                 break;
         }
-        Intent intent = new Intent(this,TrouverMotActivity.class);
+        Intent intent = new Intent(this, TrouverMotActivity.class);
         intent.putExtra("nbreLettres", niveau);
-        intent.putExtra("categorie",idCat);
-        intent.putExtra("nomCategorie",listeCategorie.get(idCat-1).getNom());
+        intent.putExtra("categorie", idCat);
+        intent.putExtra("nomCategorie", listeCategorie.get(idCat - 1).getNom());
         startActivity(intent);
     }
 

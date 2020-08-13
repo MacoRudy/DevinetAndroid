@@ -44,14 +44,21 @@ public class AccueilActivity<MyApplication> extends BaseActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-        float pourcentage4Lettres = CalculProgression.getPourcentageNiveau(fragment,4);
-        float pourcentage5Lettres = CalculProgression.getPourcentageNiveau(fragment,5);
-        float pourcentage6Lettres = CalculProgression.getPourcentageNiveau(fragment,6);
+        // Calculs des ratios pour l'activity JouerActivity
+        float pourcentage4Lettres = CalculProgression.getPourcentageNiveau(fragment, 4);
+        float pourcentage5Lettres = CalculProgression.getPourcentageNiveau(fragment, 5);
+        float pourcentage6Lettres = CalculProgression.getPourcentageNiveau(fragment, 6);
+
+        // Calcul du ratio total pour l'activity ResultatActivity
         float pourcentageTotal = CalculProgression.pourcentageTotal(fragment);
 
+        // Stockés en SharedPreferences
+        // JouerActivity
         myEdit.putFloat("pourcentage4Lettres", pourcentage4Lettres);
         myEdit.putFloat("pourcentage5Lettres", pourcentage5Lettres);
         myEdit.putFloat("pourcentage6Lettres", pourcentage6Lettres);
+
+        // ResultatActivity
         myEdit.putFloat("pourcentageTotal", pourcentageTotal);
         myEdit.apply();
 

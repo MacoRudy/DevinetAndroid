@@ -56,4 +56,19 @@ public class CalculProgression extends Application {
         bonnesReponses = 0;
         return pourcentageNiveau;
     }
+
+    public static float getPourcentageNiveauEtCategorie(FragmentActivity activity, int nbreLettre, int idCat) {
+
+        MotViewModel viewModel = ViewModelProviders.of(activity).get(MotViewModel.class);
+        List<Mot> listeMot = viewModel.getListe(nbreLettre,idCat);
+
+        for (Mot mot : listeMot) {
+            if (mot.getProposition().equals(mot.getMot().toUpperCase())) {
+                bonnesReponses++;
+            }
+        }
+        float pourcentageNiveauetCategorie = bonnesReponses / listeMot.size() * 100;
+        bonnesReponses = 0;
+        return pourcentageNiveauetCategorie;
+    }
 }
